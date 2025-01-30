@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Proxy</title>
+  </head>
+  <body>
+    <h1>Proxy Page</h1>
+    <form id="urlForm">
+      <input type="text" id="urlInput" placeholder="Enter a URL" />
+      <button type="submit">Go</button>
+    </form>
+    <div id="content"></div>
+    <script>
+      document.getElementById('urlForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+        const url = document.getElementById('urlInput').value;
+        const proxyUrl = `https://cors-anywhere.herokuapp.com/${url}`;
+        
+        fetch(proxyUrl)
+          .then(response => response.text())
+          .then(data => {
+            document.getElementById('content').innerHTML = data;
+          })
+          .catch(error => {
+            document.getElementById('content').innerHTML = 'Failed to fetch the URL';
+          });
+      });
+    </script>
+  </body>
+</html>
